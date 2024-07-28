@@ -1,4 +1,4 @@
-# Project Week 1: Go Fundamentals
+# Go Fundamentals
 
 ## Description
 
