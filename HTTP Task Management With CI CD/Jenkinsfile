@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    def app = docker.build("myapp")
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    def app = docker.image("myapp")
+                    app.inside {
+                        sh 'go test ./...'
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    def app = docker.image("myapp")
+                    app.inside {
+                        sh 'docker run -d -p 8080:8080 myapp'
+                    }
+                }
+            }
+        }
+    }
+}
+
